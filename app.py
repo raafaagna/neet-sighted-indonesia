@@ -9,7 +9,6 @@ from plotly.subplots import make_subplots
 # ── PAGE CONFIG ──────────────────────────────────────────────
 st.set_page_config(
     page_title="NEET-Sighted Indonesia 2024",
-    page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -726,7 +725,6 @@ if page == "Beranda":
 elif page == "Overview NEET":
     st.markdown("""
 <div class="page-header">
-    <div style="font-size: 26px; margin-bottom: 4px;">📂</div>
     <div class="page-title">Overview & Distribusi Pemuda NEET</div>
     <div class="page-desc">Gambaran makro kondisi pemuda NEET (Not in Education, Employment, or Training) di 38 provinsi Indonesia</div>
 </div>
@@ -744,32 +742,28 @@ elif page == "Overview NEET":
             <div class="kpi-label">Rata-rata Nasional</div>
             <div class="kpi-value">{nat_avg:.2f}%</div>
             <div class="kpi-sub">38 Provinsi · 2024</div>
-            <div class="kpi-icon">📊</div>
         </div>
         <div class="kpi-card kpi-red">
             <div class="kpi-label">NEET TERTINGGI</div>
             <div class="kpi-value">{highest["Target_NEET"]:.1f}%</div>
             <div class="kpi-sub">{highest["Provinsi"]}</div>
-            <div class="kpi-icon">⬆️</div>
         </div>
         <div class="kpi-card kpi-green">
             <div class="kpi-label">NEET TERENDAH</div>
             <div class="kpi-value">{lowest["Target_NEET"]:.1f}%</div>
             <div class="kpi-sub">{lowest["Provinsi"]}</div>
-            <div class="kpi-icon">⬇️</div>
         </div>
         <div class="kpi-card kpi-yellow">
             <div class="kpi-label">Jumlah Provinsi</div>
             <div class="kpi-value" style="font-size: 26px;">38 Provinsi</div>
             <div class="kpi-sub">Total Provinsi Analisis</div>
-            <div class="kpi-icon">🗺️</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
     # Tren Nasional Line Chart
     with st.container(border=True):
-        st.markdown('<div class="card-title">📈 TREN TINGKAT PEMUDA NEET NASIONAL (2015–2025)</div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-title">TREN TINGKAT PEMUDA NEET NASIONAL (2015–2025)</div>', unsafe_allow_html=True)
         
         years = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
         neet_trend = [24.77, 23.19, 21.41, 22.15, 21.77, 24.28, 22.4, 23.22, 22.25, 20.31, 19.44]
@@ -805,7 +799,7 @@ elif page == "Overview NEET":
 
     if True:
         with st.container(border=True):
-            st.markdown('<div class="card-title">🗺️ SEBARAN TINGKAT NEET PER PROVINSI (2024)</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-title">SEBARAN TINGKAT NEET PER PROVINSI (2024)</div>', unsafe_allow_html=True)
             st.markdown('<div class="card-subtitle">Warna gradasi biru menunjukkan intensitas NEET (semakin gelap = semakin tinggi)</div>', unsafe_allow_html=True)
 
             def neet_color_val(neet):
@@ -862,7 +856,7 @@ elif page == "Overview NEET":
 
     if True:
         with st.container(border=True):
-            st.markdown('<div class="card-title">📊 TINGKAT NEET PER PROVINSI (2024)</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-title">TINGKAT NEET PER PROVINSI (2024)</div>', unsafe_allow_html=True)
 
             pulau_options = ["Semua Pulau"] + sorted(df["pulau"].unique().tolist())
             sel_pulau = st.selectbox("Filter Wilayah:", pulau_options, key="pulau_filter")
@@ -917,29 +911,11 @@ elif page == "Overview NEET":
 elif page == "Faktor Penentu NEET":
     st.markdown('''
 <div class="page-header">
-    <div style="font-size: 26px; margin-bottom: 4px;">📈</div>
     <div class="page-title">Analisis Faktor Penentu Tingkat NEET</div>
     <div class="page-desc">Hasil pengujian regresi OLS terhadap variabel makro ekonomi & pendidikan</div>
 </div>
 ''', unsafe_allow_html=True)
 
-    # Badges di bagian atas
-    st.markdown('''
-    <div style="display:flex; gap:16px; margin-bottom: 24px;">
-        <div style="background:white; border:1px solid #E2E8F0; border-radius:8px; padding:12px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-            <div style="font-size:11px; color:#64748B; font-weight:600; text-transform:uppercase;">R² (R-Squared)</div>
-            <div style="font-size:24px; color:#1E3A8A; font-weight:800;">70,7%</div>
-        </div>
-        <div style="background:white; border:1px solid #E2E8F0; border-radius:8px; padding:12px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-            <div style="font-size:11px; color:#64748B; font-weight:600; text-transform:uppercase;">Adjusted R-Squared</div>
-            <div style="font-size:24px; color:#1E3A8A; font-weight:800;">68,11%</div>
-        </div>
-        <div style="background:#ECFDF5; border:1px solid #A7F3D0; border-radius:8px; padding:12px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-            <div style="font-size:11px; color:#059669; font-weight:600; text-transform:uppercase;">Variabel Paling Berpengaruh</div>
-            <div style="font-size:18px; color:#059669; font-weight:800;">Indeks Pembangunan Manusia (IPM)</div>
-        </div>
-    </div>
-    ''', unsafe_allow_html=True)
 
     # Section 1 — Eksplorasi Awal
     st.markdown('<div class="section-title">Bagian 1 — Eksplorasi Hubungan Awal</div>', unsafe_allow_html=True)
@@ -947,7 +923,7 @@ elif page == "Faktor Penentu NEET":
 
     with col_heat:
         with st.container(border=True):
-            st.markdown('<div class="card-title">🌡️ KORELASI ANTARVARIABEL</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-title">KORELASI ANTARVARIABEL</div>', unsafe_allow_html=True)
             st.markdown('<div class="card-subtitle">&nbsp;</div>', unsafe_allow_html=True)
 
             heat_vars = CORR_MATRIX["vars"]
@@ -975,7 +951,7 @@ elif page == "Faktor Penentu NEET":
 
     with col_corr:
         with st.container(border=True):
-            st.markdown('<div class="card-title">📏 KORELASI VARIABEL PREDIKTOR DENGAN TINGKAT NEET</div>', unsafe_allow_html=True)
+            st.markdown('<div class="card-title">KORELASI VARIABEL PREDIKTOR DENGAN TINGKAT NEET</div>', unsafe_allow_html=True)
             st.markdown('<div class="card-subtitle">Kekuatan & arah hubungan tiap variabel</div>', unsafe_allow_html=True)
 
             vars_corr = ["IPM", "SMK_Int", "SMK_Komp", "Miskin", "TPT"]
@@ -1011,16 +987,16 @@ elif page == "Faktor Penentu NEET":
     st.markdown('<div class="section-title">Bagian 2 — Pemodelan Inti</div>', unsafe_allow_html=True)
 
     var_config = {
-        "TPT": {"beta":0.659, "title":"📈 Tingkat Pengangguran Terbuka (TPT) vs NEET", "sub":"Hubungan positif (elastisitas = +0.659)", "insight":"<b>Tingkat NEET cenderung meningkat</b> seiring <b>meningkatnya tingkat pengangguran terbuka</b>. Provinsi dengan <b>pengangguran yang lebih tinggi</b> umumnya memiliki <b>proporsi pemuda NEET yang lebih besar</b>."},
-        "IPM": {"beta":-0.037, "title":"📉 Indeks Pembangunan Manusia (IPM) vs NEET", "sub":"Hubungan negatif (koefisien = −0.037)", "insight":"Provinsi dengan <b>IPM yang lebih tinggi</b> cenderung memiliki <b>tingkat NEET yang lebih rendah</b>. Hubungan ini merupakan yang paling kuat dibandingkan variabel lainnya, menunjukkan <b>pentingnya kualitas pembangunan manusia</b> dalam menekan NEET."},
-        "SMK_Komp": {"beta":-0.005, "title":"💻 SMK dengan Fasilitas Komputer vs NEET", "sub":"Hubungan negatif (koefisien = −0.005)", "insight":"Semakin banyak <b>SMK yang memiliki fasilitas komputer</b>, <b>tingkat NEET cenderung semakin rendah</b>. Hal ini mengindikasikan <b>pentingnya akses terhadap sarana pendidikan</b> yang memadai dalam mendukung pengembangan keterampilan pemuda."},
-        "Miskin": {"beta":0.5, "title":"📊 Persentase Penduduk Miskin vs NEET", "sub":"Hubungan positif", "insight":"Provinsi dengan <b>tingkat kemiskinan yang lebih tinggi</b> cenderung memiliki <b>tingkat NEET yang lebih tinggi</b>. Hal ini menunjukkan adanya keterkaitan antara <b>kerentanan ekonomi dan keterlibatan pemuda</b> dalam pendidikan maupun pekerjaan."}
+        "TPT": {"beta":0.659, "title":"Tingkat Pengangguran Terbuka (TPT) vs NEET", "sub":"Hubungan positif (elastisitas = +0.659)", "insight":"<b>Tingkat NEET cenderung meningkat</b> seiring <b>meningkatnya tingkat pengangguran terbuka</b>. Provinsi dengan <b>pengangguran yang lebih tinggi</b> umumnya memiliki <b>proporsi pemuda NEET yang lebih besar</b>."},
+        "IPM": {"beta":-0.037, "title":"Indeks Pembangunan Manusia (IPM) vs NEET", "sub":"Hubungan negatif (koefisien = −0.037)", "insight":"Provinsi dengan <b>IPM yang lebih tinggi</b> cenderung memiliki <b>tingkat NEET yang lebih rendah</b>. Hubungan ini merupakan yang paling kuat dibandingkan variabel lainnya, menunjukkan <b>pentingnya kualitas pembangunan manusia</b> dalam menekan NEET."},
+        "SMK_Komp": {"beta":-0.005, "title":"SMK dengan Fasilitas Komputer vs NEET", "sub":"Hubungan negatif (koefisien = −0.005)", "insight":"Semakin banyak <b>SMK yang memiliki fasilitas komputer</b>, <b>tingkat NEET cenderung semakin rendah</b>. Hal ini mengindikasikan <b>pentingnya akses terhadap sarana pendidikan</b> yang memadai dalam mendukung pengembangan keterampilan pemuda."},
+        "Miskin": {"beta":0.5, "title":"Persentase Penduduk Miskin vs NEET", "sub":"Hubungan positif", "insight":"Provinsi dengan <b>tingkat kemiskinan yang lebih tinggi</b> cenderung memiliki <b>tingkat NEET yang lebih tinggi</b>. Hal ini menunjukkan adanya keterkaitan antara <b>kerentanan ekonomi dan keterlibatan pemuda</b> dalam pendidikan maupun pekerjaan."}
     }
 
     col_var, col_act_pred = st.columns([1,1], gap="large")
     with col_var:
         with st.container(border=True):
-                st.markdown('<div class="card-title">🔍 PENGARUH VARIABEL TERHADAP TINGKAT NEET</div>', unsafe_allow_html=True)
+                st.markdown('<div class="card-title">PENGARUH VARIABEL TERHADAP TINGKAT NEET</div>', unsafe_allow_html=True)
                 var_labels = {
                     "TPT": "Tingkat Pengangguran Terbuka (TPT)",
                     "IPM": "Indeks Pembangunan Manusia (IPM)",
@@ -1069,7 +1045,7 @@ elif page == "Faktor Penentu NEET":
                 ''', unsafe_allow_html=True)
     with col_act_pred:
         with st.container(border=True):
-                st.markdown('<div class="card-title">🎯 PERBANDINGAN NILAI AKTUAL DAN PREDIKSI NEET</div>', unsafe_allow_html=True)
+                st.markdown('<div class="card-title">PERBANDINGAN NILAI AKTUAL DAN PREDIKSI NEET</div>', unsafe_allow_html=True)
             
                 fig_ap = go.Figure()
                 fig_ap.add_trace(go.Scatter(
@@ -1111,7 +1087,6 @@ elif page == "Faktor Penentu NEET":
 elif page == "Clustering Risiko NEET":
     st.markdown("""
 <div class="page-header">
-    <div style="font-size: 26px; margin-bottom: 4px;">🗺️</div>
     <div class="page-title" style="font-weight: 800;">Analisis Clustering Risiko Pemuda NEET</div>
     <div class="page-desc">Hasil segmentasi <b>K-Means (k=3)</b> clustering terhadap 38 provinsi berdasarkan profil NEET</div>
 </div>
@@ -1122,7 +1097,7 @@ elif page == "Clustering Risiko NEET":
     c3_df = df[df["cluster"]==3]
 
     with st.container(border=True):
-        st.markdown('<div class="card-title">🗺️ PETA CLUSTER TINGKAT RISIKO PEMUDA NEET</div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-title">PETA CLUSTER TINGKAT RISIKO PEMUDA NEET</div>', unsafe_allow_html=True)
         st.markdown('<div class="card-subtitle">Distribusi geografis ketiga cluster K-Means</div>', unsafe_allow_html=True)
 
         df_map = df.copy()
@@ -1164,9 +1139,9 @@ elif page == "Clustering Risiko NEET":
     with cc1:
         st.markdown(f"""
         <div class="cluster-card green">
-            <div class="cc-title" style="color:#059669;">🟢 Provinsi Berkinerja Baik</div>
+            <div class="cc-title" style="color:#059669;">Provinsi Berkinerja Baik</div>
             <div class="cc-stat" style="color:#059669;">{len(c1_df)} Provinsi</div>
-            <div class="cc-item">📍 <b>Pemuda NEET rata-rata: {c1_df["Target_NEET"].mean():.1f}%</b></div>
+            <div class="cc-item"><b>Pemuda NEET rata-rata: {c1_df["Target_NEET"].mean():.1f}%</b></div>
             <div class="cc-item">Provinsi dalam kelompok ini memiliki <b>tingkat NEET paling rendah</b>, didukung oleh IPM yang relatif tinggi, akses fasilitas komputer di SMK yang lebih baik, serta kondisi ketenagakerjaan yang lebih stabil.</div>
         </div>
         """, unsafe_allow_html=True)
@@ -1174,9 +1149,9 @@ elif page == "Clustering Risiko NEET":
     with cc2:
         st.markdown(f"""
         <div class="cluster-card yellow">
-            <div class="cc-title" style="color:#EAB308;">🟡 Provinsi Transisi</div>
+            <div class="cc-title" style="color:#EAB308;">Provinsi Transisi</div>
             <div class="cc-stat" style="color:#EAB308;">{len(c2_df)} Provinsi</div>
-            <div class="cc-item">📍 <b>Pemuda NEET rata-rata: {c2_df["Target_NEET"].mean():.1f}%</b></div>
+            <div class="cc-item"><b>Pemuda NEET rata-rata: {c2_df["Target_NEET"].mean():.1f}%</b></div>
             <div class="cc-item">Provinsi pada cluster ini menunjukkan <b>kondisi menengah</b>. Tingkat NEET masih cukup tinggi dan kualitas pembangunan manusia maupun fasilitas pendidikan belum sebaik kelompok risiko rendah.</div>
         </div>
         """, unsafe_allow_html=True)
@@ -1184,9 +1159,9 @@ elif page == "Clustering Risiko NEET":
     with cc3:
         st.markdown(f"""
         <div class="cluster-card red">
-            <div class="cc-title" style="color:#DC2626;">🔴 Provinsi Prioritas Intervensi</div>
+            <div class="cc-title" style="color:#DC2626;">Provinsi Prioritas Intervensi</div>
             <div class="cc-stat" style="color:#DC2626;">{len(c3_df)} Provinsi</div>
-            <div class="cc-item">📍 <b>Pemuda NEET rata-rata: {c3_df["Target_NEET"].mean():.1f}%</b></div>
+            <div class="cc-item"><b>Pemuda NEET rata-rata: {c3_df["Target_NEET"].mean():.1f}%</b></div>
             <div class="cc-item">Kelompok ini memiliki <b>tingkat NEET tertinggi dan IPM terendah</b>. Karakteristik tersebut menunjukkan perlunya <b>prioritas intervensi untuk meningkatkan kualitas sumber daya manusia dan akses pendidikan</b></div>
         </div>
         """, unsafe_allow_html=True)
@@ -1200,7 +1175,7 @@ elif page == "Clustering Risiko NEET":
     """, unsafe_allow_html=True)
 
     with st.container(border=True):
-        st.markdown('<div class="card-title">🕸️ PROFIL KARAKTERISTIK CLUSTER</div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-title">PROFIL KARAKTERISTIK CLUSTER</div>', unsafe_allow_html=True)
         st.markdown('<div class="card-subtitle">Komparasi rata-rata 5 dimensi antar cluster</div>', unsafe_allow_html=True)
 
         radar_labels = ["Indeks Pembangunan Manusia (IPM)", "SMK dengan Fasilitas Komputer", "Persentase Penduduk Miskin", "Tingkat Pengangguran Terbuka (TPT)", "Pemuda NEET"]
@@ -1240,13 +1215,13 @@ elif page == "Clustering Risiko NEET":
         """, unsafe_allow_html=True)
 
     with st.container(border=True):
-        st.markdown('<div class="card-title">📋 RINGKASAN HASIL CLUSTERING TIAP PROVINSI</div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-title">RINGKASAN HASIL CLUSTERING TIAP PROVINSI</div>', unsafe_allow_html=True)
         
         tc1, tc2 = st.columns([2, 1])
         with tc1:
             cluster_filter = st.selectbox("Filter:", ["Semua", "Provinsi Berkinerja Baik", "Provinsi Transisi", "Provinsi Prioritas Intervensi"], key="cluster_table_filter")
         with tc2:
-            search_q = st.text_input("🔍 Cari provinsi:", key="search_prov", placeholder="Ketik nama provinsi...")
+            search_q = st.text_input("Cari provinsi:", key="search_prov", placeholder="Ketik nama provinsi...")
 
         tbl_df = df.copy()
         if cluster_filter != "Semua":
@@ -1283,7 +1258,7 @@ elif page == "Clustering Risiko NEET":
         
         csv_data = tbl_df.to_csv(index=False).encode('utf-8')
         st.download_button(
-            label="📥 Unduh Data Tabel",
+            label="Unduh Data Tabel",
             data=csv_data,
             file_name="data_provinsi_cluster.csv",
             mime="text/csv",
@@ -1294,7 +1269,6 @@ elif page == "Clustering Risiko NEET":
 elif page == "Simulasi & Rekomendasi":
     st.markdown("""
 <div class="page-header">
-    <div style="font-size: 26px; margin-bottom: 4px;">🎯</div>
     <div class="page-title">Simulasi Kebijakan & Rekomendasi</div>
     <div class="page-desc">Proyeksi dampak intervensi kebijakan terhadap angka NEET menggunakan model regresi</div>
 </div>
@@ -1339,7 +1313,7 @@ elif page == "Simulasi & Rekomendasi":
     # Simulator
     st.markdown('', unsafe_allow_html=True)
     with st.container(border=True):
-        st.markdown('<div class="card-title">🧪 SIMULATOR DAMPAK KEBIJAKAN</div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-title">SIMULATOR DAMPAK KEBIJAKAN</div>', unsafe_allow_html=True)
         st.markdown('<div class="card-subtitle">Geser slider untuk melihat proyeksi dampak kebijakan terhadap angka NEET nasional</div>', unsafe_allow_html=True)
 
         BASE_TPT = 5.82
@@ -1355,11 +1329,11 @@ elif page == "Simulasi & Rekomendasi":
         slider_col, result_col = st.columns([1,1], gap="large")
 
         with slider_col:
-            delta_tpt = st.slider("📉 Perubahan Tingkat Pengangguran Terbuka (TPT) (%)", min_value=-10.0, max_value=10.0, value=0.0, step=0.1, key="tpt_slide",
+            delta_tpt = st.slider("Perubahan Tingkat Pengangguran Terbuka (TPT) (%)", min_value=-10.0, max_value=10.0, value=0.0, step=0.1, key="tpt_slide",
                                   help="Negatif = kebijakan penyerapan tenaga kerja berhasil menurunkan TPT")
-            delta_ipm = st.slider("📈 Perubahan Indeks Pembangunan Manusia (IPM)", min_value=-10.0, max_value=10.0, value=0.0, step=0.1, key="ipm_slide",
+            delta_ipm = st.slider("Perubahan Indeks Pembangunan Manusia (IPM)", min_value=-10.0, max_value=10.0, value=0.0, step=0.1, key="ipm_slide",
                                   help="Simulasi dampak perubahan pembangunan manusia")
-            delta_smk = st.slider("💻 Perubahan Persentase SMK dengan Fasilitas Komputer (%)", min_value=-10.0, max_value=10.0, value=0.0, step=0.1, key="smk_slide",
+            delta_smk = st.slider("Perubahan Persentase SMK dengan Fasilitas Komputer (%)", min_value=-10.0, max_value=10.0, value=0.0, step=0.1, key="smk_slide",
                                   help="Target perubahan digitalisasi sekolah vokasi")
 
         new_tpt = max(0.01, BASE_TPT + delta_tpt)
@@ -1399,7 +1373,7 @@ elif page == "Simulasi & Rekomendasi":
             """, unsafe_allow_html=True)
 
         # Simulation Bar Chart (replacing line chart)
-        st.markdown('<div class="card-title" style="margin-top: 20px;">📊 Prediksi Angka NEET Nasional</div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-title" style="margin-top: 20px;">Prediksi Angka NEET Nasional</div>', unsafe_allow_html=True)
         fig_sim = go.Figure(data=[
             go.Bar(
                 name='NEET', 
@@ -1436,7 +1410,7 @@ elif page == "Simulasi & Rekomendasi":
 
     # Recommendations per Province
     with st.container(border=True):
-        st.markdown('<div class="card-title" style="text-transform: uppercase;">🎯 REKOMENDASI SPESIFIK TINGKAT PROVINSI</div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-title" style="text-transform: uppercase;">REKOMENDASI SPESIFIK TINGKAT PROVINSI</div>', unsafe_allow_html=True)
 
         rec_data = {
             1: {
