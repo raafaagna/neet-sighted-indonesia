@@ -519,24 +519,27 @@ with st.sidebar:
 """, unsafe_allow_html=True)
 
 import streamlit.components.v1 as components
-if 'current_page' not in st.session_state:
-    st.session_state['current_page'] = page
 
-if st.session_state['current_page'] != page:
-    st.session_state['current_page'] = page
-    components.html(
-        """
-        <script>
-            const parent = window.parent;
-            parent.scrollTo(0, 0);
-            const main = parent.document.querySelector('.main') || parent.document.querySelector('section[data-testid="stMain"]');
-            if (main) {
-                main.scrollTo(0, 0);
-            }
-        </script>
-        """,
-        height=0
-    )
+components.html(
+    f"""
+    <script>
+        const parent = window.parent;
+        if (parent && parent.window.lastScrolledPage !== '{page}') {{
+            parent.window.lastScrolledPage = '{page}';
+            setTimeout(function() {{
+                parent.scrollTo(0, 0);
+                const containers = parent.document.querySelectorAll('.main, section[data-testid="stMain"], [data-testid="stAppViewContainer"], [data-testid="stAppViewBlockContainer"]');
+                containers.forEach(function(c) {{
+                    c.scrollTo({{top: 0, behavior: 'smooth'}});
+                    c.scrollTop = 0;
+                }});
+            }}, 150);
+        }}
+    </script>
+    """,
+    height=0,
+    width=0
+)
 
 
 # ════════════════════════════════════════════════════════════
