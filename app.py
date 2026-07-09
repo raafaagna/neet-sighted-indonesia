@@ -518,6 +518,26 @@ with st.sidebar:
 </div>
 """, unsafe_allow_html=True)
 
+import streamlit.components.v1 as components
+if 'current_page' not in st.session_state:
+    st.session_state['current_page'] = page
+
+if st.session_state['current_page'] != page:
+    st.session_state['current_page'] = page
+    components.html(
+        """
+        <script>
+            const parent = window.parent;
+            parent.scrollTo(0, 0);
+            const main = parent.document.querySelector('.main') || parent.document.querySelector('section[data-testid="stMain"]');
+            if (main) {
+                main.scrollTo(0, 0);
+            }
+        </script>
+        """,
+        height=0
+    )
+
 
 # ════════════════════════════════════════════════════════════
 # PAGE 0 — BERANDA
